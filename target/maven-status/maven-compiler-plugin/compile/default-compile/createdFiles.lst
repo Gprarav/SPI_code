@@ -1,0 +1,7 @@
+com/baeldung/auth/provider/user/CustomUser$Builder.class
+com/baeldung/auth/provider/user/CustomUser.class
+com/baeldung/auth/provider/user/CustomUserStorageProviderConstants.class
+com/baeldung/auth/provider/user/DbUtil.class
+com/baeldung/auth/provider/user/CustomUserStorageProviderFactory.class
+com/baeldung/auth/provider/mapper/CustomProtocolMapper.class
+com/baeldung/auth/provider/user/CustomUserStorageProvider.class
