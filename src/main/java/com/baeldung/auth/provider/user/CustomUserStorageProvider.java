@@ -63,7 +63,7 @@ public class CustomUserStorageProvider implements UserStorageProvider,
     public UserModel getUserByUsername(RealmModel realm, String name) {
         log.info("[I41] getUserByUsername({})", name);
         try (Connection c = DbUtil.getConnection(this.model)) {
-            PreparedStatement st = c.prepareStatement("select user_master_id, user_id, role_id, name, address_line1, phone_mobile, email_id, user_password, is_Approved, user_region_id, designation, text_password, password_reset_flag, is_Active, created_by, created_on, updated_by, updated_on, password_modified_by, password_modified_on, user_password_2 verified_time, genrated_time, email_token, email_verify_flag from user_master_new where name = ?");
+            PreparedStatement st = c.prepareStatement("select name as username ,email_id as email, name as firstname, name as lastname, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken,email_verify_flag  from user_master_new where name =?");
             st.setString(1, name);  
             st.execute();
             ResultSet rs = st.getResultSet();
@@ -85,7 +85,7 @@ public class CustomUserStorageProvider implements UserStorageProvider,
     public UserModel getUserByEmail(RealmModel realm, String email) {
         log.info("[I48] getUserByEmail({})", email);
         try (Connection c = DbUtil.getConnection(this.model)) {
-            PreparedStatement st = c.prepareStatement("select user_master_id, user_id, role_id, name, address_line1, phone_mobile, email_id, user_password, is_Approved, user_region_id, designation, text_password, password_reset_flag, is_Active, created_by, created_on, updated_by, updated_on, password_modified_by, password_modified_on, user_password_2 verified_time, genrated_time, email_token, email_verify_flag from user_master_new where email_id = ?");
+            PreparedStatement st = c.prepareStatement("select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken, email_verify_flag  from user_master_new where email_id = ?");
             st.setString(1, email);
             st.execute();
             ResultSet rs = st.getResultSet();
@@ -176,10 +176,10 @@ public class CustomUserStorageProvider implements UserStorageProvider,
 
         try (Connection c = DbUtil.getConnection(this.model)) {
             PreparedStatement st = c.prepareStatement(
-                    "select user_master_id, user_id, role_id, name, address_line1, phone_mobile, email_id, user_password, is_Approved, user_region_id, designation, text_password, password_reset_flag, is_Active, created_by, created_on, updated_by, updated_on, password_modified_by, password_modified_on, user_password_2 verified_time, genrated_time, email_token,  email_verify_flag from user_master_new WHERE name LIKE ? ORDER BY name LIMIT ? OFFSET ?");
-            st.setString(1, search);
-            st.setInt(2, maxResults);
-            st.setInt(3, firstResult);
+                    "select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken, email_verify_flag from user_master_new ORDER BY username");
+            // st.setString(1, search);
+            // st.setInt(1, 300);
+            // st.setInt(2, 1);
             st.execute();
             ResultSet rs = st.getResultSet();
 
@@ -211,9 +211,9 @@ public class CustomUserStorageProvider implements UserStorageProvider,
 
         try (Connection c = DbUtil.getConnection(this.model)) {
             PreparedStatement st = c
-                    .prepareStatement("select user_master_id, user_id, role_id, name, address_line1, phone_mobile, email_id, user_password, is_Approved, user_region_id, designation, text_password, password_reset_flag, is_Active, created_by, created_on, updated_by, updated_on, password_modified_by, password_modified_on, user_password_2 verified_time, genrated_time, email_token,  email_verify_flag from user_master_new ORDER BY name LIMIT ? OFFSET ?");
-            st.setInt(1, maxResults);
-            st.setInt(2, firstResult);
+                    .prepareStatement("select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken, email_verify_flag from user_master_new ORDER BY username");
+            // st.setInt(1, 300);
+            // st.setInt(2, 1);
             st.execute();
             ResultSet rs = st.getResultSet();
 
@@ -232,32 +232,29 @@ public class CustomUserStorageProvider implements UserStorageProvider,
     // //------------------- Implementation
     private UserModel mapUser(RealmModel realm, ResultSet rs) throws SQLException {
                 //DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        CustomUser user = new CustomUser.Builder(ksession, realm, model, rs.getString("user_id"))
-                .user_master_id(rs.getInt("user_master_id"))
-                .role_id(rs.getInt("role_id"))
-                .name(rs.getString("name"))
-                .address_line1(rs.getString("address_line1"))
-                .phone_mobile(rs.getString("phone_mobile"))
-                .email_id(rs.getString("email_id"))
-                .user_password(rs.getString("user_password"))
-                .is_Approved(rs.getBoolean("is_approved"))
-                .user_region_id(rs.getInt("user_region_id"))
-                .designation(rs.getString("designation"))
-                .text_password(rs.getString("text_password"))
-                .password_reset_flag(rs.getBoolean("password_reset_flag"))
-                .is_Active(rs.getBoolean("is_active"))
-                .created_by(rs.getInt("created_by"))
-                .created_on(rs.getTimestamp("created_on"))
-                .updated_by(rs.getInt("updated_by"))
-                .updated_on(rs.getTimestamp("updated_on"))
-                .password_modified_by(rs.getInt("password_modified_by"))
-                .password_modified_on(rs.getTimestamp("password_modified_on"))
-                .user_password_2(rs.getString("user_password_2"))
-                .verified_time(rs.getTimestamp("verified_time"))
-                .genrated_time(rs.getTimestamp("genrated_time"))
-                .email_token(rs.getString("email_token"))
-                .email_verify_flag(rs.getBoolean("email_verify_flag"))
+        CustomUser user = new CustomUser.Builder(ksession, realm, model, rs.getString("username"))
+        .email(rs.getString("email"))
+        .lastName(rs.getString("firstName"))
+        .firstName(rs.getString("lastName"))
+        .mobileNumber(rs.getString("mobileNumber"))
+        .uid(rs.getString("uid"))
+        .userMasterId(rs.getInt("userMasterId"))
+        .roleId(rs.getInt("roleId"))
+        .addressLine(rs.getString("addressLine"))
+        .isApproved(rs.getInt("isApproved"))
+        .userRegionId(rs.getInt("userRegionId"))
+        .designation(rs.getString("designation"))
+        .textPassword(rs.getString("textPassword"))
+        .passwordResetflag(rs.getInt("passwordResetflag"))
+        .isActive(rs.getInt("isActive"))
+        .createdBy(rs.getString("createdBy"))
+        .createdOn(rs.getDate("createdOn"))
+        .updatedBy(rs.getString("updatedBy"))
+        .passwordModifiedby(rs.getString("passwordModifiedby"))
+        .emailToken(rs.getString("emailToken"))
+        .email_verify_flag(rs.getInt("email_verify_flag"))
 
+        
 
                 .build();
 

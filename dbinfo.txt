@@ -1,0 +1,30 @@
+table record
+
+-[ RECORD 1 ]--------+-----------------------------------------------------------------
+user_master_id       | 1418408
+user_id              | TR81418408
+role_id              | 8
+name                 | ABHISHEK KUND
+address_line1        | 
+phone_mobile         | 9612780650
+email_id             | absk05@gmail.com
+user_password        | 8776f108e247ab1e2b323042c049c266407c81fbad41bde1e8dfc1bb66fd267e
+is_approved          | 1
+user_region_id       | 2500190
+designation          | dasdasdasdas
+text_password        | #miqRR53
+password_reset_flag  | 2
+is_active            | 1
+created_by           | TR51000018
+created_on           | 2022-12-13 16:25:18.912
+updated_by           | TR51000018
+updated_on           | 2022-12-13 16:26:41.456
+password_modified_by | 
+password_modified_on | 
+verified_time        | 
+genrated_time        | 2022-12-13 16:24:16.20699
+email_token          | 
+email_verify_flag    | 2
+
+
+Run all query one by one 

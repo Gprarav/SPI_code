@@ -1,9 +1,12 @@
 package com.baeldung.auth.provider.user;
 
-import java.util.Date;
+import java.sql.Date;
+//import java.util.Date;
 import java.util.List;
 import java.util.Map;
 //import java.util.stream.Stream;
+
+import javax.swing.text.DefaultEditorKit.CutAction;
 
 import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
@@ -15,192 +18,168 @@ import org.keycloak.models.UserModel;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
 
 class CustomUser extends AbstractUserAdapter {
-    private final int user_master_id;
-    private final int user_id;
-    private final int role_id;
-    private final String name;
-    private final String address_line1;
-    private final String phone_mobile;
-    private final String email_id;
-    private final String user_password;
-    private final boolean is_Approved;
-    private final int user_region_id;
+    private final String username;
+    private final String email;
+    private final String firstName;
+    private final String lastName;
+    private final String mobileNumber;
+    private final String uid;
+    private final int userMasterId;
+    private final int roleId;
+    private final String addressLine;
+    private final int isApproved;
+    private final int userRegionId;
     private final String designation;
-    private final String text_password;
-    private final boolean password_reset_flag;
-    private final boolean is_Active;
-    private final int created_by;
-    private final Date created_on;
-    private final int updated_by;
-    private final Date updated_on;
-    private final int password_modified_by;
-    private final Date password_modified_on;
-    private final String user_password_2;
-    private final Date verified_time;
-    private final Date genrated_time;
-    private final String email_token;
-    private final boolean email_verify_flag;
+    private final String textPassword;
+    private final int passwordResetflag;
+    private final int isActive;
+    private final String createdBy;
+    private final Date createdOn;
+    private final String updatedBy;
+    private final String passwordModifiedby;
+    private final String emailToken;
+    private final int email_verify_flag;
 
+    
+   
     private CustomUser(KeycloakSession session, RealmModel realm,
             ComponentModel storageProviderModel,
-            int user_master_id,
-            int user_id,
-            int role_id,
-            String name,
-            String address_line1,
-            String phone_mobile,
-            String email_id,
-            String user_password,
-            boolean is_Approved,
-            int user_region_id,
+            String username,
+            String email,
+            String firstName,
+            String lastName,
+            String mobileNumber,
+            String uid,
+            int userMasterId,
+            int roleId,
+            String addressLine,
+            int isApproved,
+            int userRegionId,
             String designation,
-            String text_password,
-            boolean password_reset_flag,
-            boolean is_Active,
-            int created_by,
-            Date created_on,
-            int updated_by,
-            Date updated_on,
-            int password_modified_by,
-            Date password_modified_on,
-            String user_password_2,
-            Date verified_time,
-            Date genrated_time,
-            String email_token,
-            boolean email_verify_flag)
-
-    {
+            String textPassword,
+            int passwordResetflag,
+            int isActive,
+            String createdBy,
+            Date createdOn,
+            String updatedBy,
+            String passwordModifiedby,
+            String emailToken,
+            int email_verify_flag
+            
+            
+            )
+            
+            {
         super(session, realm, storageProviderModel);
-        this.user_master_id = user_master_id;
-        this.user_id = user_id;
-        this.role_id = role_id;
-        this.name = name;
-        this.address_line1 = address_line1;
-        this.phone_mobile = phone_mobile;
-        this.email_id = email_id;
-        this.user_password = user_password;
-        this.is_Approved = is_Approved;
-        this.user_region_id = user_region_id;
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobileNumber = mobileNumber;
+        this.uid = uid;
+        this.userMasterId = userMasterId;
+        this.roleId = roleId;
+        this.addressLine = addressLine;
+        this.isApproved = isApproved;
+        this.userRegionId = userRegionId;
         this.designation = designation;
-        this.text_password = text_password;
-        this.password_reset_flag = password_reset_flag;
-        this.is_Active = is_Active;
-        this.created_by = created_by;
-        this.created_on = created_on;
-        this.updated_by = updated_by;
-        this.updated_on = updated_on;
-        this.password_modified_by = password_modified_by;
-        this.password_modified_on = password_modified_on;
-        this.user_password_2 = user_password_2;
-        this.verified_time = verified_time;
-        this.genrated_time = genrated_time;
-        this.email_token = email_token;
+        this.textPassword = textPassword;
+        this.passwordResetflag = passwordResetflag;
+        this.isActive = isActive;
+        this.createdBy = createdBy;
+        this.createdOn = createdOn;
+        this.updatedBy = updatedBy;
+        this.passwordModifiedby = passwordModifiedby;
+        this.emailToken = emailToken;
         this.email_verify_flag = email_verify_flag;
-    }
 
+
+    }
+    @Override
     public String getUsername() {
-        return "sr";
+        return username;
     }
 
-    public int getUser_master_id() {
-        return user_master_id;
+    
+    @Override
+    public String getEmail() {
+        return email;
     }
 
-    public int getUser_id() {
-        return user_id;
+    @Override
+    public String getFirstName() {
+        return firstName;
     }
 
-    public int getRole_id() {
-        return role_id;
+    @Override
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getName() {
-        return name;
+    public String getMobile_number() {
+        return mobileNumber;
+    }
+    
+    public String getUid(){
+        return uid;
+
     }
 
-    public String getAddress_line1() {
-        return address_line1;
+    public int getUserMasterId(){
+        return userMasterId;
     }
 
-    public String getPhone_mobile() {
-        return phone_mobile;
+    public int getRoleId(){
+        return roleId;
     }
 
-    public String getEmail_id() {
-        return email_id;
+    public String getAddressline(){
+        return addressLine;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public int getIsApproved(){
+        return isApproved;
+    }
+    public int getUserRegionId(){
+        return userRegionId;
     }
 
-    public boolean is_Approved() {
-        return is_Approved;
-    }
-
-    public int getUserRegionId() {
-        return user_region_id;
-    }
-
-    public String getDesignation() {
+    public String getdesignation(){
         return designation;
     }
 
-    public String getText_password() {
-        return text_password;
+    public String getTextpassword(){
+        return textPassword;
+    }
+    public int getPasswordResetflag(){
+        return passwordResetflag;
+
+    }
+    public int getIsactive(){
+        return isActive;
+    }
+    public String getCreatedBy(){
+        return createdBy;
     }
 
-    public boolean is_Password_reset_flag() {
-        return password_reset_flag;
+    public Date getCreatedon(){
+        return createdOn;
     }
 
-    public boolean is_Active() {
-        return is_Active;
+    public String getUpdatedby(){
+        return updatedBy;
     }
-
-    public int getCreated_by() {
-        return created_by;
+    public String getPasswordmodifiedby(){
+        return passwordModifiedby;
     }
-
-    public Date getCreated_on() {
-        return created_on;
+    public String gerEmailtoken(){
+        return emailToken;
     }
-
-    public int getUpdated_by() {
-        return updated_by;
-    }
-
-    public Date getUpdated_on() {
-        return updated_on;
-    }
-
-    public int getPassword_modified_by() {
-        return password_modified_by;
-    }
-
-    public Date getPassword_modified_on() {
-        return password_modified_on;
-    }
-
-    public String getUser_password_2() {
-        return user_password_2;
-    }
-
-    public Date getVerified_time() {
-        return verified_time;
-    }
-
-    public Date getGenrated_time() {
-        return genrated_time;
-    }
-
-    public String getEmail_token() {
-        return email_token;
-    }
-
-    public boolean isEmail_verify_flag() {
+    public int getEmailverifyflag(){
         return email_verify_flag;
     }
+
+    
 
     // Attributes add
     @Override
@@ -208,31 +187,28 @@ class CustomUser extends AbstractUserAdapter {
         MultivaluedHashMap<String, String> attributes = new MultivaluedHashMap<>();
         attributes.add(UserModel.USERNAME, getUsername());
         attributes.add(UserModel.EMAIL, getEmail());
-        attributes.add("user_master_id", String.valueOf(getUser_id()));
-        attributes.add("user_id", String.valueOf(getUser_id()));
-        attributes.add("role_id", String.valueOf(getRole_id()));
-        attributes.add("name", getName());
-        attributes.add("address_line1", getAddress_line1());
-        attributes.add("phone_mobile", getPhone_mobile());
-        attributes.add("is_Approved", String.valueOf(is_Approved()));
-        attributes.add("user_region_id", String.valueOf(getUserRegionId()));
-        attributes.add("designation", getDesignation());
-        attributes.add("user_password", getText_password());
-        attributes.add("password_reset_flag", String.valueOf(is_Password_reset_flag()));
-        attributes.add("is_Active", String.valueOf(is_Active()));
-        attributes.add("created_by", String.valueOf(getCreated_by()));
-        attributes.add("created_on", String.valueOf(getCreated_by()));
-        attributes.add("updated_by", String.valueOf(getCreated_by()));
-        attributes.add("updated_on", String.valueOf(getCreated_on()));
-        attributes.add("password_modified_by", String.valueOf(getPassword_modified_by()));
-        attributes.add("password_modified_on", String.valueOf(getPassword_modified_by()));
-        attributes.add("verified_time", String.valueOf(getVerified_time()));
-        attributes.add("genrated_time", String.valueOf(getGenrated_time()));
-        attributes.add("email_token", getEmail());
-        attributes.add("email_verify_flag", String.valueOf(isEmail_verify_flag()));
-        attributes.add("text_password", getText_password());
-        attributes.add("user_password_2", getUser_password());
+        attributes.add(UserModel.FIRST_NAME,getFirstName());
+        attributes.add(UserModel.LAST_NAME,getLastName());
+        attributes.add("mobileNumber", getMobile_number());
+        attributes.add("userId",getUid());
+        attributes.add("userMasterId",String.valueOf(getUserMasterId()));
+        attributes.add("roleId",String.valueOf(getRoleId()));
+        attributes.add("addressLine", getAddressline());
+        attributes.add("isApproved",String.valueOf(getIsApproved()));
+        attributes.add("userRegionId",String.valueOf(getUserRegionId()));
+        attributes.add("designation", getdesignation());
+        attributes.add("textPassword",getTextpassword());
+        attributes.add("passwordResetflag",String.valueOf(getPasswordResetflag()));
+        attributes.add("isActive",String.valueOf(getIsactive()));
+        attributes.add("createdBy",getCreatedBy());
+        attributes.add("createdOn",String.valueOf(getCreatedon()));
+        attributes.add("updatedBy",getUpdatedby());
+        attributes.add("passwordModifiedby",getPasswordmodifiedby());
+        attributes.add("emailToken",gerEmailtoken());
+        attributes.add("email_verify_flag",String.valueOf(getEmailverifyflag()));
 
+
+        
         return attributes;
     }
 
@@ -241,195 +217,170 @@ class CustomUser extends AbstractUserAdapter {
         private final KeycloakSession session;
         private final RealmModel realm;
         private final ComponentModel storageProviderModel;
-        private int user_master_id;
-        private int user_id;
-        private int role_id;
-        private String name;
-        private String address_line1;
-        private String phone_mobile;
-        private String email_id;
-        private boolean is_Approved;
-        private int user_region_id;
+        private  String username;
+        private  String email;
+        private  String firstName;
+        private  String lastName;
+        private  String mobileNumber;
+        private String uid;
+        private int userMasterId;
+        private int roleId;
+        private String addressLine;
+        private int isApproved;
+        private int userRegionId;
         private String designation;
-        private String user_password;
-        private String text_password;
-        private boolean password_reset_flag;
-        private boolean is_Active;
-        private int created_by;
-        private Date created_on;
-        private int updated_by;
-        private Date updated_on;
-        private int password_modified_by;
-        private Date password_modified_on;
-        private String user_password_2;
-        private Date verified_time;
-        private Date genrated_time;
-        private String email_token;
-        private boolean email_verify_flag;
+        private String textPassword;
+        private int passwordResetflag;
+        private int isActive;
+        private String createdBy;
+        private Date createdOn;
+        private String updatedBy;
+        private String passwordModifiedby;
+        private String emailToken;
+        private int email_verify_flag;
+        
 
-        Builder(KeycloakSession session, RealmModel realm, ComponentModel storageProviderModel, String name) {
+        Builder(KeycloakSession session, RealmModel realm, ComponentModel storageProviderModel, String username) {
             this.session = session;
             this.realm = realm;
             this.storageProviderModel = storageProviderModel;
-            this.name = name;
+            this.username = username;
+            
 
         }
-
-        CustomUser.Builder user_master_id(int user_master_id) {
-            this.user_master_id = user_master_id;
+        CustomUser.Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+        
+        CustomUser.Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+        
+        CustomUser.Builder lastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
-        CustomUser.Builder user_id(int user_id) {
-            this.user_id = user_id;
+        CustomUser.Builder mobileNumber(String mobileNumber){
+            this.mobileNumber = mobileNumber;
             return this;
         }
 
-        CustomUser.Builder role_id(int role_id) {
-            this.role_id = role_id;
+        CustomUser.Builder uid(String uid){
+            this.uid = uid;
+            return this;
+        }
+       
+        CustomUser.Builder userMasterId(int userMasterId){
+            this.userMasterId = userMasterId;
             return this;
         }
 
-        CustomUser.Builder name(String name) {
-            this.name = name;
+        CustomUser.Builder roleId(int roleId){
+            this.roleId = roleId;
             return this;
         }
 
-        CustomUser.Builder address_line1(String addressLine1) {
-            this.address_line1 = addressLine1;
+        CustomUser.Builder addressLine(String addressline1){
+            this.addressLine = addressline1;
             return this;
         }
 
-        CustomUser.Builder phone_mobile(String phone_mobile) {
-            this.phone_mobile = phone_mobile;
+        CustomUser.Builder isApproved(int isApproved){
+            this.isApproved = isApproved;
+            return this;
+        }
+        CustomUser.Builder userRegionId(int userRegionId){
+            this.userRegionId = userRegionId;
             return this;
         }
 
-        CustomUser.Builder email_id(String email_id) {
-            this.email_id = email_id;
-            return this;
-        }
-
-        CustomUser.Builder user_password(String user_password) {
-            this.user_password = user_password;
-            return this;
-        }
-
-        CustomUser.Builder is_Approved(boolean is_Approved) {
-            this.is_Approved = is_Approved;
-            return this;
-        }
-
-        CustomUser.Builder user_region_id(int user_region_id) {
-            this.user_region_id = user_region_id;
-            return this;
-        }
-
-        CustomUser.Builder designation(String designation) {
+        CustomUser.Builder designation(String designation){
             this.designation = designation;
             return this;
         }
 
-        CustomUser.Builder text_password(String text_password) {
-            this.text_password = text_password;
+        CustomUser.Builder textPassword(String textPassword){
+            this.textPassword = textPassword;
             return this;
         }
 
-        CustomUser.Builder password_reset_flag(boolean password_reset_flag) {
-            this.password_reset_flag = password_reset_flag;
+        CustomUser.Builder passwordResetflag(int passwordResetflag){
+            this.passwordResetflag = passwordResetflag;
             return this;
         }
 
-        CustomUser.Builder is_Active(boolean is_Active) {
-            this.is_Active = is_Active;
+        CustomUser.Builder isActive(int isActive){
+            this.isActive = isActive;
             return this;
         }
 
-        CustomUser.Builder created_by(int created_by) {
-            this.created_by = created_by;
+        CustomUser.Builder createdBy(String createdBy){
+            this.createdBy = createdBy;
             return this;
         }
 
-        CustomUser.Builder created_on(Date created_on) {
-            this.created_on = created_on;
+        CustomUser.Builder createdOn(Date createdOn){
+            this.createdOn = createdOn;
             return this;
         }
 
-        CustomUser.Builder updated_by(int updated_by) {
-            this.updated_by = updated_by;
+        CustomUser.Builder updatedBy(String updatedBy){
+            this.updatedBy = updatedBy;
             return this;
         }
-
-        CustomUser.Builder updated_on(Date updated_on) {
-            this.updated_on = updated_on;
+        CustomUser.Builder passwordModifiedby(String passwordModifiedby){
+            this.passwordModifiedby = passwordModifiedby;
             return this;
         }
-
-        CustomUser.Builder password_modified_by(int password_modified_by) {
-            this.password_modified_by = password_modified_by;
+        CustomUser.Builder emailToken(String emailToken){
+            this.emailToken = emailToken;
             return this;
         }
-
-        CustomUser.Builder password_modified_on(Date password_modified_on) {
-            this.password_modified_on = password_modified_on;
-            return this;
-        }
-
-        CustomUser.Builder user_password_2(String user_password_2) {
-            this.user_password_2 = user_password_2;
-            return this;
-        }
-
-        CustomUser.Builder verified_time(Date verified_time) {
-            this.verified_time = verified_time;
-            return this;
-        }
-
-        CustomUser.Builder genrated_time(Date genrated_time) {
-            this.genrated_time = genrated_time;
-            return this;
-        }
-
-        CustomUser.Builder email_token(String email_token) {
-            this.email_token = email_token;
-            return this;
-        }
-
-        CustomUser.Builder email_verify_flag(boolean email_verify_flag) {
+        CustomUser.Builder email_verify_flag (int email_verify_flag){
             this.email_verify_flag = email_verify_flag;
             return this;
         }
+
+
+
+
+
+
+
 
         CustomUser build() {
             return new CustomUser(
                     session,
                     realm,
                     storageProviderModel,
-                    user_master_id,
-                    user_id,
-                    role_id,
-                    name,
-                    address_line1,
-                    phone_mobile,
-                    email_id,
-                    user_password,
-                    is_Approved,
-                    user_region_id,
+                    username,
+                    email,
+                    firstName,
+                    lastName,
+                    mobileNumber,
+                    uid,
+                    userMasterId,
+                    roleId,
+                    addressLine,
+                    isApproved,
+                    userRegionId,
                     designation,
-                    text_password,
-                    password_reset_flag,
-                    is_Active,
-                    created_by,
-                    created_on,
-                    updated_by,
-                    updated_on,
-                    password_modified_by,
-                    password_modified_on,
-                    user_password_2,
-                    verified_time,
-                    genrated_time,
-                    email_token,
-                    email_verify_flag);
+                    textPassword,
+                    passwordResetflag,
+                    isActive,
+                    createdBy,
+                    createdOn,
+                    updatedBy,
+                    passwordModifiedby,
+                    emailToken,
+                    email_verify_flag
+                    
+
+                    
+                   );
         }
         
     }
@@ -438,5 +389,6 @@ class CustomUser extends AbstractUserAdapter {
     public SubjectCredentialManager credentialManager() {
         return new LegacyUserCredentialManager(session, realm, this);
     }
+   
 
 }
