@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 //import java.util.stream.Stream;
 
-import javax.swing.text.DefaultEditorKit.CutAction;
+//import javax.swing.text.DefaultEditorKit.CutAction;
 
 import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
@@ -27,18 +27,19 @@ class CustomUser extends AbstractUserAdapter {
     private final int userMasterId;
     private final int roleId;
     private final String addressLine;
-    private final int isApproved;
+    private final Boolean isApproved;
     private final int userRegionId;
     private final String designation;
-    private final String textPassword;
-    private final int passwordResetflag;
-    private final int isActive;
+   // private final String textPassword;
+    private final boolean passwordResetflag;
+    private final Boolean isActive;
     private final String createdBy;
     private final Date createdOn;
     private final String updatedBy;
     private final String passwordModifiedby;
-    private final String emailToken;
-    private final int email_verify_flag;
+    private final String password;
+    //private final String emailToken;
+   // private final int email_verify_flag;
 
     
    
@@ -53,18 +54,19 @@ class CustomUser extends AbstractUserAdapter {
             int userMasterId,
             int roleId,
             String addressLine,
-            int isApproved,
+            Boolean isApproved,
             int userRegionId,
             String designation,
-            String textPassword,
-            int passwordResetflag,
-            int isActive,
+          //  String textPassword,
+            boolean passwordResetflag,
+            Boolean isActive,
             String createdBy,
             Date createdOn,
             String updatedBy,
             String passwordModifiedby,
-            String emailToken,
-            int email_verify_flag
+            String password
+           // String emailToken,
+           // int email_verify_flag
             
             
             )
@@ -83,15 +85,16 @@ class CustomUser extends AbstractUserAdapter {
         this.isApproved = isApproved;
         this.userRegionId = userRegionId;
         this.designation = designation;
-        this.textPassword = textPassword;
+       // this.textPassword = textPassword;
         this.passwordResetflag = passwordResetflag;
         this.isActive = isActive;
         this.createdBy = createdBy;
         this.createdOn = createdOn;
         this.updatedBy = updatedBy;
         this.passwordModifiedby = passwordModifiedby;
-        this.emailToken = emailToken;
-        this.email_verify_flag = email_verify_flag;
+        this.password = password;
+       // this.emailToken = emailToken;
+      //  this.email_verify_flag = email_verify_flag;
 
 
     }
@@ -137,7 +140,7 @@ class CustomUser extends AbstractUserAdapter {
         return addressLine;
     }
 
-    public int getIsApproved(){
+    public boolean getIsApproved(){
         return isApproved;
     }
     public int getUserRegionId(){
@@ -148,14 +151,14 @@ class CustomUser extends AbstractUserAdapter {
         return designation;
     }
 
-    public String getTextpassword(){
-        return textPassword;
-    }
-    public int getPasswordResetflag(){
+    // public String getTextpassword(){
+    //     return textPassword;
+    // }
+    public boolean getPasswordResetflag(){
         return passwordResetflag;
 
     }
-    public int getIsactive(){
+    public boolean getIsactive(){
         return isActive;
     }
     public String getCreatedBy(){
@@ -172,11 +175,14 @@ class CustomUser extends AbstractUserAdapter {
     public String getPasswordmodifiedby(){
         return passwordModifiedby;
     }
-    public String gerEmailtoken(){
-        return emailToken;
-    }
-    public int getEmailverifyflag(){
-        return email_verify_flag;
+    // public String gerEmailtoken(){
+    //     return emailToken;
+    // }
+    // public int getEmailverifyflag(){
+    //     return email_verify_flag;
+    // }
+    public String getPassword(){
+        return password;
     }
 
     
@@ -197,15 +203,16 @@ class CustomUser extends AbstractUserAdapter {
         attributes.add("isApproved",String.valueOf(getIsApproved()));
         attributes.add("userRegionId",String.valueOf(getUserRegionId()));
         attributes.add("designation", getdesignation());
-        attributes.add("textPassword",getTextpassword());
+       // attributes.add("textPassword",getTextpassword());
         attributes.add("passwordResetflag",String.valueOf(getPasswordResetflag()));
         attributes.add("isActive",String.valueOf(getIsactive()));
         attributes.add("createdBy",getCreatedBy());
         attributes.add("createdOn",String.valueOf(getCreatedon()));
         attributes.add("updatedBy",getUpdatedby());
         attributes.add("passwordModifiedby",getPasswordmodifiedby());
-        attributes.add("emailToken",gerEmailtoken());
-        attributes.add("email_verify_flag",String.valueOf(getEmailverifyflag()));
+        attributes.add("password", getPassword());
+       // attributes.add("emailToken",gerEmailtoken());
+      // attributes.add("email_verify_flag",String.valueOf(getEmailverifyflag()));
 
 
         
@@ -226,18 +233,19 @@ class CustomUser extends AbstractUserAdapter {
         private int userMasterId;
         private int roleId;
         private String addressLine;
-        private int isApproved;
+        private boolean isApproved;
         private int userRegionId;
         private String designation;
-        private String textPassword;
-        private int passwordResetflag;
-        private int isActive;
+       // private String textPassword;
+        private boolean passwordResetflag;
+        private boolean isActive;
         private String createdBy;
         private Date createdOn;
         private String updatedBy;
         private String passwordModifiedby;
-        private String emailToken;
-        private int email_verify_flag;
+        private String password;
+        // private String emailToken;
+        // private int email_verify_flag;
         
 
         Builder(KeycloakSession session, RealmModel realm, ComponentModel storageProviderModel, String username) {
@@ -288,7 +296,7 @@ class CustomUser extends AbstractUserAdapter {
             return this;
         }
 
-        CustomUser.Builder isApproved(int isApproved){
+        CustomUser.Builder isApproved(boolean isApproved){
             this.isApproved = isApproved;
             return this;
         }
@@ -302,17 +310,17 @@ class CustomUser extends AbstractUserAdapter {
             return this;
         }
 
-        CustomUser.Builder textPassword(String textPassword){
-            this.textPassword = textPassword;
-            return this;
-        }
+        // CustomUser.Builder textPassword(String textPassword){
+        //     this.textPassword = textPassword;
+        //     return this;
+        // }
 
-        CustomUser.Builder passwordResetflag(int passwordResetflag){
+        CustomUser.Builder passwordResetflag(boolean passwordResetflag){
             this.passwordResetflag = passwordResetflag;
             return this;
         }
 
-        CustomUser.Builder isActive(int isActive){
+        CustomUser.Builder isActive(boolean isActive){
             this.isActive = isActive;
             return this;
         }
@@ -335,12 +343,16 @@ class CustomUser extends AbstractUserAdapter {
             this.passwordModifiedby = passwordModifiedby;
             return this;
         }
-        CustomUser.Builder emailToken(String emailToken){
-            this.emailToken = emailToken;
-            return this;
-        }
-        CustomUser.Builder email_verify_flag (int email_verify_flag){
-            this.email_verify_flag = email_verify_flag;
+        // CustomUser.Builder emailToken(String emailToken){
+        //     this.emailToken = emailToken;
+        //     return this;
+        // }
+        // CustomUser.Builder email_verify_flag (int email_verify_flag){
+        //     this.email_verify_flag = email_verify_flag;
+        //     return this;
+        // }
+        CustomUser.Builder password(String password){
+            this.password = password ;
             return this;
         }
 
@@ -368,18 +380,16 @@ class CustomUser extends AbstractUserAdapter {
                     isApproved,
                     userRegionId,
                     designation,
-                    textPassword,
+                   // textPassword,
                     passwordResetflag,
                     isActive,
                     createdBy,
                     createdOn,
                     updatedBy,
                     passwordModifiedby,
-                    emailToken,
-                    email_verify_flag
-                    
-
-                    
+                    password
+                    // emailToken,
+                    // email_verify_flag
                    );
         }
         
