@@ -36,7 +36,7 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
             .name(CONFIG_KEY_JDBC_URL)
             .label("JDBC URL")
             .type(ProviderConfigProperty.STRING_TYPE)
-            .defaultValue("jdbc:postgresql://localhost:5432/nudise")
+            .defaultValue("jdbc:postgresql://192.168.122.125:5432/postgres")    // postgres machine ip  port and database name
             .helpText("JDBC URL used to connect to the user database")
             .add()
           .property()
