@@ -63,7 +63,7 @@ public class CustomUserStorageProvider implements UserStorageProvider,
     public UserModel getUserByUsername(RealmModel realm, String name) {
         log.info("[I41] getUserByUsername({})", name);
         try (Connection c = DbUtil.getConnection(this.model)) {
-            PreparedStatement st = c.prepareStatement("select name as username ,email_id as email, name as firstname, name as lastname, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken,email_verify_flag  from user_master_new where name =?");
+            PreparedStatement st = c.prepareStatement("select name as username ,email_id as email, name as firstname, name as lastname, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, password from user_master_new where name =?");
             st.setString(1, name);  
             st.execute();
             ResultSet rs = st.getResultSet();
@@ -85,7 +85,7 @@ public class CustomUserStorageProvider implements UserStorageProvider,
     public UserModel getUserByEmail(RealmModel realm, String email) {
         log.info("[I48] getUserByEmail({})", email);
         try (Connection c = DbUtil.getConnection(this.model)) {
-            PreparedStatement st = c.prepareStatement("select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken, email_verify_flag  from user_master_new where email_id = ?");
+            PreparedStatement st = c.prepareStatement("select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, password  from user_master_new where email_id = ?");
             st.setString(1, email);
             st.execute();
             ResultSet rs = st.getResultSet();
@@ -134,7 +134,7 @@ public class CustomUserStorageProvider implements UserStorageProvider,
         String name = sid.getExternalId();
 
         try (Connection c = DbUtil.getConnection(this.model)) {
-            PreparedStatement st = c.prepareStatement("select user_password from user_master_new WHERE name = ?");
+            PreparedStatement st = c.prepareStatement("select password from user_master_new WHERE name = ?");
             st.setString(1, name);
             st.execute();
             ResultSet rs = st.getResultSet();
@@ -176,7 +176,7 @@ public class CustomUserStorageProvider implements UserStorageProvider,
 
         try (Connection c = DbUtil.getConnection(this.model)) {
             PreparedStatement st = c.prepareStatement(
-                    "select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken, email_verify_flag from user_master_new ORDER BY username");
+                    "select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, password from user_master_new ORDER BY username");
             // st.setString(1, search);
             // st.setInt(1, 300);
             // st.setInt(2, 1);
@@ -211,7 +211,7 @@ public class CustomUserStorageProvider implements UserStorageProvider,
 
         try (Connection c = DbUtil.getConnection(this.model)) {
             PreparedStatement st = c
-                    .prepareStatement("select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, text_password as textPassword, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, email_token as emailToken, email_verify_flag from user_master_new ORDER BY username");
+                    .prepareStatement("select name as username ,name as firstname, name as lastname, email_id as email, phone_mobile as mobileNumber, user_id as uid, user_master_id as userMasterId, role_id as roleId, address_line1 as addressLine, is_approved as isApproved, user_region_id as userRegionId, designation, password_reset_flag as passwordResetflag, is_active as isActive, created_by as createdBy, created_on as createdOn, updated_by as updatedBy, password_modified_by as passwordModifiedby, password from user_master_new ORDER BY username");
             // st.setInt(1, 300);
             // st.setInt(2, 1);
             st.execute();
@@ -241,18 +241,19 @@ public class CustomUserStorageProvider implements UserStorageProvider,
         .userMasterId(rs.getInt("userMasterId"))
         .roleId(rs.getInt("roleId"))
         .addressLine(rs.getString("addressLine"))
-        .isApproved(rs.getInt("isApproved"))
+        .isApproved(rs.getBoolean("isApproved"))
         .userRegionId(rs.getInt("userRegionId"))
         .designation(rs.getString("designation"))
-        .textPassword(rs.getString("textPassword"))
-        .passwordResetflag(rs.getInt("passwordResetflag"))
-        .isActive(rs.getInt("isActive"))
+       // .textPassword(rs.getString("textPassword"))
+        .passwordResetflag(rs.getBoolean("passwordResetflag"))
+        .isActive(rs.getBoolean("isActive"))
         .createdBy(rs.getString("createdBy"))
         .createdOn(rs.getDate("createdOn"))
         .updatedBy(rs.getString("updatedBy"))
         .passwordModifiedby(rs.getString("passwordModifiedby"))
-        .emailToken(rs.getString("emailToken"))
-        .email_verify_flag(rs.getInt("email_verify_flag"))
+        .password(rs.getString("password"))
+        // .emailToken(rs.getString("emailToken"))
+        // .email_verify_flag(rs.getInt("email_verify_flag"))
 
         
 
